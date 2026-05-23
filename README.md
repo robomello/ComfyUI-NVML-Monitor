@@ -9,6 +9,12 @@
 
 ComfyUI-NVML-Monitor is a lightweight ComfyUI extension that shows real-time GPU, CPU, and RAM telemetry without leaving the ComfyUI tab. It uses NVIDIA's NVML library directly (via `pynvml`/`nvidia-ml-py`), works seamlessly inside Docker containers, and correctly accounts for VRAM consumed by other containers or host processes that the in-container view normally hides.
 
+<p align="center">
+  <img src="screenshot/chip.jpg" alt="NVML Monitor chip" width="956" />
+</p>
+
+The chip above is the always-on summary surface (CPU, RAM, VRAM, GPU util). Click it to expand into a detailed popup with per-metric bars, temperature, power draw vs limit, clock speeds, fan, and a process table.
+
 ---
 
 ## Why this exists
@@ -38,14 +44,6 @@ The chip floats above the ComfyUI canvas and shows, from left to right:
 - System RAM `used / total`
 - VRAM `used / total`
 - GPU utilization percent
-
-Mock layout (actual rendering is dark, monospace, pill-shaped):
-
-```
-┌──────────────────────────────────────────────────────────────────────┐
-│  NVML   NVIDIA   CPU 9%   RAM 19.1G/62.7G   VRAM 8.4G/95.6G   GPU 0% │
-└──────────────────────────────────────────────────────────────────────┘
-```
 
 Color coding:
 
