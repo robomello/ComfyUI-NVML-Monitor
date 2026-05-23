@@ -326,6 +326,12 @@ This project's UI shape (compact chip + tabbed popup) is directly inspired by:
 
 The Python implementation, the API surface, and the Docker / namespace handling are independent.
 
+### Built with
+
+This project was designed and implemented in pair-programming sessions with [Claude Code](https://www.anthropic.com/claude-code) (Anthropic). Code, README, packaging, and the registry submission were generated collaboratively. Author retains full responsibility for the final result.
+
+See [`CONTRIBUTORS.md`](CONTRIBUTORS.md) for the full list of contributors.
+
 ---
 
 ## License
