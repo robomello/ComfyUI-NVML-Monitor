@@ -13,7 +13,11 @@ ComfyUI-NVML-Monitor is a lightweight ComfyUI extension that shows real-time GPU
   <img src="screenshot/chip.jpg" alt="NVML Monitor chip" width="956" />
 </p>
 
-The chip above is the always-on summary surface (CPU, RAM, VRAM, GPU util). Click it to expand into a detailed popup with per-metric bars, temperature, power draw vs limit, clock speeds, fan, and a process table.
+<p align="center">
+  <img src="screenshot/chip-multi-gpu.png" alt="NVML Monitor chip on a dual-GPU system" width="956" />
+</p>
+
+The chip above is the always-on summary surface (CPU, RAM, VRAM, GPU util). On multi-GPU systems it auto-detects every card and labels them `G0`, `G1`, … with their own VRAM and util; the badge shows `NVIDIA ×N`. Click it to expand into a detailed popup with per-metric bars, temperature, power draw vs limit, clock speeds, fan, and a process table.
 
 ---
 
@@ -39,10 +43,10 @@ If you are on Windows with an AMD card, use [ComfyUI-ADLX-Monitor](https://githu
 The chip floats above the ComfyUI canvas and shows, from left to right:
 
 - `NVML` — plugin label
-- `NVIDIA` — provider badge (red `offline` if NVML init fails)
+- `NVIDIA` — provider badge (red `offline` if NVML init fails; appends `×N` when multiple GPUs are detected)
 - CPU usage percent
 - System RAM `used / total`
-- VRAM `used / total`
+- VRAM `used / total` (or per-GPU `G0`, `G1`, … blocks on multi-GPU systems)
 - GPU utilization percent
 
 Color coding:
