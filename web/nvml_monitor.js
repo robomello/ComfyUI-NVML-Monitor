@@ -177,25 +177,36 @@ function renderChip(el, data) {
   const badgeClass = provider === "NVIDIA" ? "" : "err";
   const cpu = data.cpu?.percent;
   const ram = data.ram;
-  const gpu = data.gpus?.[0];
-  const vram = gpu?.vram;
-  const gpuUtil = gpu?.util?.gpu;
+  const gpus = data.gpus || [];
+  const multi = gpus.length > 1;
 
   const cpuColor = loadColor(cpu);
   const ramColor = loadColor(ram?.percent);
-  const vramColor = loadColor(vram?.percent);
+
+  const gpuChunks = gpus.map((g) => {
+    const vram = g.vram || {};
+    const util = g.util?.gpu;
+    const vramColor = loadColor(vram.percent);
+    const utilColor = loadColor(util);
+    const label = multi ? `G${g.index}` : "VRAM";
+    const utilLabel = multi ? "" : "GPU";
+    const vramStat = `<span class="nvml-chip-stat"><span class="nvml-chip-icon">${label}</span><span style="color:${vramColor}">${fmtG(vram.used_gb)}/${fmtG(vram.total_gb)}</span></span>`;
+    const utilStat = util != null
+      ? `<span class="nvml-chip-stat">${utilLabel ? `<span class="nvml-chip-icon">${utilLabel}</span>` : ""}<span style="color:${utilColor}">${fmtPct(util)}</span></span>`
+      : "";
+    return vramStat + utilStat;
+  }).join("");
 
   el.innerHTML = `
     <span class="nvml-chip-label">NVML</span>
-    <span class="nvml-chip-badge ${badgeClass}">${provider}</span>
+    <span class="nvml-chip-badge ${badgeClass}">${provider}${multi ? ` ×${gpus.length}` : ""}</span>
     <span class="nvml-chip-stat"><span class="nvml-chip-icon">CPU</span><span style="color:${cpuColor}">${fmtPct(cpu)}</span></span>
     <span class="nvml-chip-stat"><span class="nvml-chip-icon">RAM</span><span style="color:${ramColor}">${fmtG(ram?.used_gb)}/${fmtG(ram?.total_gb)}</span></span>
-    <span class="nvml-chip-stat"><span class="nvml-chip-icon">VRAM</span><span style="color:${vramColor}">${fmtG(vram?.used_gb)}/${fmtG(vram?.total_gb)}</span></span>
-    ${gpuUtil != null ? `<span class="nvml-chip-stat"><span class="nvml-chip-icon">GPU</span><span style="color:${loadColor(gpuUtil)}">${fmtPct(gpuUtil)}</span></span>` : ""}
+    ${gpuChunks}
   `;
   el.title = data.nvml_error
     ? `NVML error: ${data.nvml_error}`
-    : `Driver ${data.driver || "?"} • Click to expand • Drag to move`;
+    : `Driver ${data.driver || "?"} • ${gpus.length} GPU${gpus.length === 1 ? "" : "s"} • Click to expand • Drag to move`;
 }
 
 let popupEl = null;
