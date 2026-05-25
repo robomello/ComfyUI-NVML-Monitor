@@ -70,6 +70,10 @@ Click the chip to open a popup with two tabs. The GPU tab shows, per detected de
 - **Fan** — percent
 - **Processes** — PID, name, VRAM per process, plus an `External` row when in-container VRAM accounting does not match the global NVML total
 
+<p align="center">
+  <img src="screenshot/popup-gpu-tab.png" alt="Popup GPU tab on a dual-GPU rig" width="480" />
+</p>
+
 ### Popup — System tab
 
 - **CPU total load** — percent + bar
@@ -77,6 +81,10 @@ Click the chip to open a popup with two tabs. The GPU tab shows, per detected de
 - **RAM** — used / total + bar
 - **Driver** — NVIDIA driver version
 - **Provider** — `NVIDIA` or `unavailable` (with the underlying NVML error if init failed)
+
+<p align="center">
+  <img src="screenshot/popup-system-tab.png" alt="Popup System tab" width="480" />
+</p>
 
 ### Quality-of-life
 
